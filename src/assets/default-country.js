@@ -1,5 +1,3 @@
-import getJSON from 'get-json';
-
 const getCountry = function () {
     return fetch('https://ip2c.org/s')
     .then((response) => response.text())
