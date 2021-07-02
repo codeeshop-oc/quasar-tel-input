@@ -141,7 +141,7 @@ import allCountries from './assets/all-countries';
 import getCountry from './assets/default-country';
 
 export default {
-  name: 'vue-tel-input',
+  name: 'VueTelInput', // vue component name
   props: {
     value: {
       type: String,

@@ -1,45 +1,48 @@
 {
   "name": "vue-tel-input",
-  "version": "2.0.8",
-  "description": "International Telephone Input with Vue",
-  "author": "Steven Dao <iamstevendao@gmail.com>",
-  "main": "dist/vue-tel-input.js",
-  "license": "MIT",
-  "homepage": "https://educationlink.github.io/vue-tel-input/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/EducationLink/vue-tel-input.git"
-  },
-  "scripts": {
-    "dist": "poi build ./src/vue-tel-input.js --format umd --module-name VueTelInput --filename.js vue-tel-input.js --filename.css vue-tel-input.css --no-sourceMap --no-html",
-    "dist:demo": "poi build ./demo/index.js --config ./demo/build.config.js --filename.css vue-tel-input.css --no-sourceMap --dist ./docs",
-    "start": "yarn dev",
-    "dev": "poi build ./demo/index.js --config ./demo/build.config.js --filename.css vue-tel-input.css --no-sourceMap --no-minimize --dist ./docs",
-    "release": "rm -rf dist && yarn dist",
-    "demo": "yarn dist && yarn dev && yarn demo:open",    
-    "demo:open": "open 'http://localhost:5000/'; serve ./docs/"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/vue-tel-input.ssr.js",
+  "browser": "dist/vue-tel-input.esm.js",
+  "module": "dist/vue-tel-input.esm.js",
+  "unpkg": "dist/vue-tel-input.min.js",
   "files": [
-    "dist/"
+    "dist/*",
+    "src/**/*.vue"
   ],
-  "keywords": [
-    "vue",
-    "telephone",
-    "phone",
-    "vue-tel-input",
-    "phone input",
-    "telephone input"
-  ],
+  "sideEffects": false,
+  "scripts": {
+    "serve": "vue-cli-service serve dev/serve.js",
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
+    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
+    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
+  },
   "dependencies": {
-    "get-json": "^1.0.0",
-    "libphonenumber-js": "^1.4.6"
+    "libphonenumber-js": "^1.9.20"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.3.0",
-    "eslint-plugin-import": "^2.7.0",
-    "poi": "^9.4.3",
-    "serve": "^6.3.1"
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-replace": "^2.3.4",
+    "@vue/cli-plugin-babel": "^4.5.10",
+    "@vue/cli-service": "^4.5.10",
+    "cross-env": "^7.0.3",
+    "minimist": "^1.2.5",
+    "rollup": "^2.36.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "^5.1.9",
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.12"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }
