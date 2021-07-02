@@ -281,12 +281,14 @@ export default {
        * 2. Use the first country from preferred list (if available) or all countries list
        */
       this.activeCountry = this.findCountry(this.preferredCountries[0]) || allCountries[0];
+      this.choose(this.activeCountry)
       /**
        * 3. Check if fetching country based on user's IP is allowed, set it as the default country
        */
       if (!this.disabledFetchingCountry) {
         getCountry().then((res) => {
           this.activeCountry = this.findCountry(res) || this.activeCountry;
+          this.choose(this.activeCountry)
         });
       }
     },
@@ -305,6 +307,7 @@ export default {
     },
     choose(country) {
       this.activeCountry = country;
+      console.log(this.response, 'this.response')
       this.$emit('onInput', this.response);
     },
     onInput() {
