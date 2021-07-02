@@ -30,12 +30,12 @@
         </li>
       </ul>
     </div>
+           <!-- :formatter="format" -->
     <input ref="input"
            v-model="phone"
            type="tel"
            :placeholder="placeholder"
            :state="state"
-           :formatter="format"
            :disabled="disabled"
            @blur="onBlur"
            @input="onInput"
