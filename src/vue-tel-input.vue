@@ -32,18 +32,16 @@
       </ul>
     </div>
            <!-- :formatter="format" -->
-     <slot name="input" v-bind:p="{ phone }">
-       <input ref="input"
-         v-model="phone"
-         type="tel"
-         :placeholder="placeholder"
-         :state="state"
-         :disabled="disabled"
-         @blur="onBlur"
-         @input="onInput"
-         :maxlength="maxlength"
-         :required="required">
-    </slot>
+     <input ref="input"
+       v-model="phone"
+       type="tel"
+       :placeholder="placeholder"
+       :state="state"
+       :disabled="disabled"
+       @blur="onBlur"
+       @input="onInput"
+       :maxlength="maxlength"
+       :required="required">
   </div>
 </template>
 
