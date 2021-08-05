@@ -12,6 +12,7 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <vue-tel-input />
+    <vue-tel-input>
+    </vue-tel-input>
   </div>
 </template>

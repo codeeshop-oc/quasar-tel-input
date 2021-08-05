@@ -1,6 +1,7 @@
 <template>
   <div class="vue-tel-input"
        :class="{ disabled: disabled }">
+
     <div class="dropdown"
          @click="toggleDropdown"
          v-click-outside="clickedOutside"
@@ -31,15 +32,18 @@
       </ul>
     </div>
            <!-- :formatter="format" -->
-    <input ref="input"
-           v-model="phone"
-           type="tel"
-           :placeholder="placeholder"
-           :state="state"
-           :disabled="disabled"
-           @blur="onBlur"
-           @input="onInput"
-           :required="required">
+     <slot name="input" v-bind:p="{ phone }">
+       <input ref="input"
+         v-model="phone"
+         type="tel"
+         :placeholder="placeholder"
+         :state="state"
+         :disabled="disabled"
+         @blur="onBlur"
+         @input="onInput"
+         :maxlength="maxlength"
+         :required="required">
+    </slot>
   </div>
 </template>
 
@@ -146,6 +150,10 @@ export default {
     value: {
       type: String,
     },
+    maxlength: {
+      type: Number,
+      default: 15
+    },
     placeholder: {
       type: String,
       default: 'Enter a phone number',
@@ -237,7 +245,8 @@ export default {
         phone = this.phone.slice(1);
       }
 
-      return formatNumber(phone, this.activeCountry && this.activeCountry.iso2, 'International');
+      return phone;
+      // return formatNumber(phone, this.activeCountry && this.activeCountry.iso2, 'International');
     },
     state() {
       return isValidNumber(this.formattedResult, this.activeCountry && this.activeCountry.iso2);
@@ -307,12 +316,12 @@ export default {
     },
     choose(country) {
       this.activeCountry = country;
-      console.log(this.response, 'this.response')
       this.$emit('onInput', this.response);
     },
     onInput() {
       this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
+      console.log(this.response, 'xx this.response')
       this.$emit('input', this.response.number);
 
       // Emit the response, includes phone, validity and country
