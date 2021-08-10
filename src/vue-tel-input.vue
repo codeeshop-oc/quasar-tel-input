@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<style src="./assets/sprite.css"></style>
+<!-- <style src="./assets/sprite.css"></style> -->
 <style scoped>
 :local {
   --border-radius: 2px;
@@ -144,11 +144,10 @@ ul {
 
 <script>
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
-import allCountries from './assets/all-countries';
-import getCountry from './assets/default-country';
+import allCountries from '../../node_modules/vue-tel-input/src/assets/all-countries';
+import getCountry from '../../node_modules/vue-tel-input/src/assets/default-country';
 
 export default {
-  name: 'VueTelInput', // vue component name
   props: {
     value: {
       type: String,
@@ -338,6 +337,7 @@ export default {
       this.open = !this.open;
     },
     clickedOutside() {
+    console.log('[re]')
       this.open = false;
     },
     keyboardNav(e) {
@@ -408,7 +408,7 @@ export default {
         // Define Handler and cache it on the element
         var bubble = binding.modifiers.bubble;
         var handler = function (e) {
-          if (bubble || (!el.contains(e.target) && el !== e.target)) {
+          if (bubble || (!e.target.classList.contains('close-btn') && (!el.contains(e.target) && el !== e.target))) {
             binding.value(e)
           }
         };
