@@ -16,7 +16,7 @@
           {{ open ? '▲' : '▼' }}
         </span>
       </span>
-      <ul v-show="open" ref="tellist">
+      <ul :style="open ? '' : 'display: none;'" ref="tellist">
         <li class="dropdown-item"
             v-for="(pb, index) in sortedCountries"
             :key="pb.iso2 + (pb.preferred ? '-preferred' : '')"
