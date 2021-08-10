@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<!-- <style src="./assets/sprite.css"></style> -->
+<style src="./assets/sprite.css"></style>
 <style scoped>
 :local {
   --border-radius: 2px;
