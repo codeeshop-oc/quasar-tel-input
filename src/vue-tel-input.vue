@@ -16,7 +16,7 @@
           {{ open ? '▲' : '▼' }}
         </span>
       </span>
-      <ul :style="open ? '' : 'display: none;'" ref="tellist">
+      <ul :class="open ? 'myopen' : 'myclose'" ref="tellist">
         <li class="dropdown-item"
             v-for="(pb, index) in sortedCountries"
             :key="pb.iso2 + (pb.preferred ? '-preferred' : '')"
@@ -133,6 +133,12 @@ ul {
 .vue-tel-input.disabled .dropdown,
 .vue-tel-input.disabled input {
   cursor: no-drop;
+}
+.myclose {
+  display: none !important;
+}
+.myopen {
+  display: block !important;
 }
 </style>
 
