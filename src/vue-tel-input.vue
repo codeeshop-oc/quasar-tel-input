@@ -319,7 +319,7 @@ export default {
     onInput() {
       this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
-      console.log(this.response, 'xx this.response')
+      //console.log(this.response, 'xx this.response')
       this.$emit('input', this.response.number);
 
       // Emit the response, includes phone, validity and country
