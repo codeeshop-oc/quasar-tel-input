@@ -4,7 +4,7 @@
 
     <div class="dropdown"
          @click="toggleDropdown"
-         v-click-outside="clickedOutside"
+         v-click-outside-input="clickedOutside"
          :class="{open: open}"
          @keydown="keyboardNav"
          tabindex="0"
@@ -16,8 +16,7 @@
           {{ open ? '▲' : '▼' }}
         </span>
       </span>
-      <ul v-show="open"
-          ref="list">
+      <ul v-show="open" ref="tellist">
         <li class="dropdown-item"
             v-for="(pb, index) in sortedCountries"
             :key="pb.iso2 + (pb.preferred ? '-preferred' : '')"
@@ -31,10 +30,10 @@
         </li>
       </ul>
     </div>
-           <!-- :formatter="format" -->
+    <!-- :formatter="format" -->
      <input ref="input"
        v-model="phone"
-       type="tel"
+       type="text"
        :placeholder="placeholder"
        :state="state"
        :disabled="disabled"
@@ -320,7 +319,6 @@ export default {
       this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
       this.$emit('input', this.response.number);
-
       // Emit the response, includes phone, validity and country
       this.$emit('onInput', this.response);
     },
@@ -345,9 +343,9 @@ export default {
         } else {
           this.selectedIndex = Math.min(this.sortedCountries.length - 1, this.selectedIndex + 1);
         }
-        let selEle = this.$refs.list.children[this.selectedIndex];
-        if (selEle.offsetTop + selEle.clientHeight > this.$refs.list.scrollTop + this.$refs.list.clientHeight)
-          this.$refs.list.scrollTop = selEle.offsetTop - this.$refs.list.clientHeight + selEle.clientHeight;
+        let selEle = this.$refs.tellist.children[this.selectedIndex];
+        if (selEle.offsetTop + selEle.clientHeight > this.$refs.tellist.scrollTop + this.$refs.tellist.clientHeight)
+          this.$refs.tellist.scrollTop = selEle.offsetTop - this.$refs.tellist.clientHeight + selEle.clientHeight;
       } else if (e.keyCode === 38) {
         // up arrow
         this.open = true;
@@ -356,9 +354,9 @@ export default {
         } else {
           this.selectedIndex = Math.max(0, this.selectedIndex - 1);
         }
-        let selEle = this.$refs.list.children[this.selectedIndex];
-        if (selEle.offsetTop < this.$refs.list.scrollTop)
-          this.$refs.list.scrollTop = selEle.offsetTop;
+        let selEle = this.$refs.tellist.children[this.selectedIndex];
+        if (selEle.offsetTop < this.$refs.tellist.scrollTop)
+          this.$refs.tellist.scrollTop = selEle.offsetTop;
       } else if (e.keyCode === 13) {
         // enter key
         if (this.selectedIndex !== null) {
@@ -376,9 +374,9 @@ export default {
         let typedCountryI = this.sortedCountries.slice(this.preferredCountries.length).findIndex(c => c.name.toLowerCase().startsWith(this.typeToFindInput));
         if (~typedCountryI) {
           this.selectedIndex = this.preferredCountries.length + typedCountryI;
-          let selEle = this.$refs.list.children[this.selectedIndex];
-          if (selEle.offsetTop < this.$refs.list.scrollTop || selEle.offsetTop + selEle.clientHeight > this.$refs.list.scrollTop + this.$refs.list.clientHeight) {
-            this.$refs.list.scrollTop = selEle.offsetTop - this.$refs.list.clientHeight / 2;
+          let selEle = this.$refs.tellist.children[this.selectedIndex];
+          if (selEle.offsetTop < this.$refs.tellist.scrollTop || selEle.offsetTop + selEle.clientHeight > this.$refs.tellist.scrollTop + this.$refs.tellist.clientHeight) {
+            this.$refs.tellist.scrollTop = selEle.offsetTop - this.$refs.tellist.clientHeight / 2;
           }
         }
       }
@@ -389,13 +387,13 @@ export default {
     },
   },
   directives: {
-    // Click-outside from BosNaufal: https://github.com/BosNaufal/vue-click-outside
-    'click-outside': {
+    // click-outside-input from BosNaufal: https://github.com/BosNaufal/vue-click-outside-input
+    'click-outside-input': {
       bind: function (el, binding, vNode) {
         // Provided expression must evaluate to a function.
         if (typeof binding.value !== 'function') {
           var compName = vNode.context.name;
-          var warn = '[Vue-click-outside:] provided expression ' + binding.expression + ' is not a function, but has to be';
+          var warn = '[Vue-click-outside-input:] provided expression ' + binding.expression + ' is not a function, but has to be';
           if (compName) {
             warn += 'Found in component ' + compName;
           }
