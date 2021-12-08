@@ -1270,3 +1270,14 @@ export default allCountries.map(country => ({
   priority: country[3] || 0,
   areaCodes: country[4] || null,
 }));
+
+export const findCountryFromISO = (xcode) => {
+  let country_iso2 = ''
+  for (var i = allCountries.length - 1; i >= 0; i--) {
+    if(allCountries[i][2] == xcode) {
+      country_iso2 = allCountries[i][1];
+      break;
+    }
+  }
+  return country_iso2
+}

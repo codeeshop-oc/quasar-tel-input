@@ -144,8 +144,8 @@ ul {
 
 <script>
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
-import allCountries from '../../node_modules/vue-tel-input/src/assets/all-countries';
-import getCountry from '../../node_modules/vue-tel-input/src/assets/default-country';
+import allCountries, { findCountryFromISO } from './assets/all-countries';
+import getCountry from './assets/default-country';
 
 export default {
   props: {
@@ -182,6 +182,12 @@ export default {
     },
     defaultCountry: {
       // Default country code, ie: 'AU'
+      // Will override the current country of user
+      type: String,
+      default: '',
+    },
+    defaultCountryDialCode: {
+      // Default country code, ie: '91'
       // Will override the current country of user
       type: String,
       default: '',
@@ -262,7 +268,7 @@ export default {
         isValid: this.state,
         country: this.activeCountry,
       };
-    },
+    }
   },
   watch: {
     state(value) {
@@ -277,6 +283,9 @@ export default {
     },
   },
   methods: {
+    findCountryFromISOCode(code) {
+      return findCountryFromISO(code);
+    },
     initializeCountry() {
       /**
        * 1. Use default country if passed from parent
@@ -287,7 +296,17 @@ export default {
           this.activeCountry = defaultCountry;
           return;
         }
+      } else {
+        if(this.defaultCountryDialCode) {
+          const defaultCountryDialCode = this.findCountryFromISO(this.defaultCountryDialCode);
+          if (defaultCountryDialCode) {
+            this.activeCountry = defaultCountryDialCode;
+            return;
+          }
+          this.disabledFetchingCountry = true
+        }
       }
+
       /**
        * 2. Use the first country from preferred list (if available) or all countries list
        */
