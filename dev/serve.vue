@@ -1,15 +1,12 @@
 <script>
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import VueTelInput from '@/vue-tel-input.vue';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'ServeDev',
   components: {
     VueTelInput
   },
-  mounted() {
-    // console.log(this.$refs.telnet.findCountryFromISOCode('91'), 'this.$refs.telnet')
-  }
 });
 </script>
 
