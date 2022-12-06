@@ -5226,14 +5226,32 @@ var AsYouType$1 = /*#__PURE__*/function () {
   }]);
 
   return AsYouType;
-}();// Importing from a ".js" file is a workaround for Node.js "ES Modules"
+}();/**
+ * Formats a (possibly incomplete) phone number.
+ * The phone number can be either in E.164 format
+ * or in a form of national number digits.
+ * @param {string} value - A possibly incomplete phone number. Either in E.164 format or in a form of national number digits.
+ * @param {string?} country - Two-letter ("ISO 3166-1 alpha-2") country code.
+ * @return {string} Formatted (possibly incomplete) phone number.
+ */
+
+function formatIncompletePhoneNumber$1(value, country, metadata) {
+  if (!metadata) {
+    metadata = country;
+    country = undefined;
+  }
+
+  return new AsYouType$1(country, metadata).input(value);
+}// Importing from a ".js" file is a workaround for Node.js "ES Modules"
 
 function AsYouType(country) {
 	return AsYouType$1.call(this, country, metadata)
 }
 
 AsYouType.prototype = Object.create(AsYouType$1.prototype, {});
-AsYouType.prototype.constructor = AsYouType;function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+AsYouType.prototype.constructor = AsYouType;function formatIncompletePhoneNumber() {
+	return withMetadataArgument(formatIncompletePhoneNumber$1, arguments)
+}function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -5525,6 +5543,10 @@ var getCountry$1 = getCountry;var script = /*#__PURE__*/vue.defineComponent({
         formatter.input(this.phone); // Find inputted country in the countries list
 
         this.activeCountry = this.findCountry(formatter.country) || this.activeCountry;
+        var formatter2 = new AsYouType('US'); // eslint-disable-line
+
+        formatter2.input(this.phone);
+        console.log(formatIncompletePhoneNumber(this.phone));
       } else if (this.mode === 'prefix') {
         // Remove the first '0' if this is a '0' prefix number
         // Ex: 0432421999
@@ -5838,9 +5860,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   } else {
     style.appendChild(document.createTextNode(css));
   }
-}var css_248z = "\n[data-v-78b3b994]:local {\n  --border-radius: 2px;\n}\nli.last-preferred[data-v-78b3b994] {\n  border-bottom: 1px solid #cacaca;\n}\n.iti-flag[data-v-78b3b994] {\n  margin-right: 5px;\n  margin-left: 5px;\n}\n.dropdown-item .iti-flag[data-v-78b3b994] {\n  display: inline-block;\n  margin-right: 5px;\n}\n.selection[data-v-78b3b994] {\n  font-size: 0.8em;\n  display: flex;\n  align-items: center;\n}\n.vue-tel-input[data-v-78b3b994] {\n  border-radius: 3px;\n  display: flex;\n  border: 1px solid #bbb;\n  text-align: left;\n}\n.vue-tel-input[data-v-78b3b994]:focus-within {\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),\n    0 0 8px rgba(102, 175, 233, 0.6);\n  border-color: #66afe9;\n}\ninput[data-v-78b3b994] {\n  border: none;\n  border-radius: 0 var(--border-radius) var(--border-radius) 0;\n  width: 100%;\n  outline: none;\n  padding-left: 7px;\n}\nul[data-v-78b3b994] {\n  padding: 0;\n  margin: 0;\n  text-align: left;\n  list-style: none;\n  max-height: 200px;\n  overflow-y: scroll;\n  position: absolute;\n  top: 33px;\n  left: -1px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  width: 390px;\n}\n.dropdown[data-v-78b3b994] {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  position: relative;\n  padding: 7px;\n  cursor: pointer;\n}\n.dropdown.open[data-v-78b3b994] {\n  background-color: #f3f3f3;\n}\n.dropdown[data-v-78b3b994]:hover {\n  background-color: #f3f3f3;\n}\n.dropdown-arrow[data-v-78b3b994] {\n  transform: scaleY(0.5);\n  display: inline-block;\n  color: #666;\n}\n.dropdown-item[data-v-78b3b994] {\n  cursor: pointer;\n  padding: 4px 15px;\n}\n.dropdown-item.highlighted[data-v-78b3b994] {\n  background-color: #f3f3f3;\n}\n.dropdown-menu.show[data-v-78b3b994] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.vue-tel-input.disabled .selection[data-v-78b3b994],\n.vue-tel-input.disabled .dropdown[data-v-78b3b994],\n.vue-tel-input.disabled input[data-v-78b3b994] {\n  cursor: no-drop;\n}\n.myclose[data-v-78b3b994] {\n  display: none !important;\n}\n.myopen[data-v-78b3b994] {\n  display: block !important;\n}\n";
+}var css_248z = "\n[data-v-15076938]:local {\n  --border-radius: 2px;\n}\nli.last-preferred[data-v-15076938] {\n  border-bottom: 1px solid #cacaca;\n}\n.iti-flag[data-v-15076938] {\n  margin-right: 5px;\n  margin-left: 5px;\n}\n.dropdown-item .iti-flag[data-v-15076938] {\n  display: inline-block;\n  margin-right: 5px;\n}\n.selection[data-v-15076938] {\n  font-size: 0.8em;\n  display: flex;\n  align-items: center;\n}\n.vue-tel-input[data-v-15076938] {\n  border-radius: 3px;\n  display: flex;\n  border: 1px solid #bbb;\n  text-align: left;\n}\n.vue-tel-input[data-v-15076938]:focus-within {\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),\n    0 0 8px rgba(102, 175, 233, 0.6);\n  border-color: #66afe9;\n}\ninput[data-v-15076938] {\n  border: none;\n  border-radius: 0 var(--border-radius) var(--border-radius) 0;\n  width: 100%;\n  outline: none;\n  padding-left: 7px;\n}\nul[data-v-15076938] {\n  padding: 0;\n  margin: 0;\n  text-align: left;\n  list-style: none;\n  max-height: 200px;\n  overflow-y: scroll;\n  position: absolute;\n  top: 33px;\n  left: -1px;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  width: 390px;\n}\n.dropdown[data-v-15076938] {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  position: relative;\n  padding: 7px;\n  cursor: pointer;\n}\n.dropdown.open[data-v-15076938] {\n  background-color: #f3f3f3;\n}\n.dropdown[data-v-15076938]:hover {\n  background-color: #f3f3f3;\n}\n.dropdown-arrow[data-v-15076938] {\n  transform: scaleY(0.5);\n  display: inline-block;\n  color: #666;\n}\n.dropdown-item[data-v-15076938] {\n  cursor: pointer;\n  padding: 4px 15px;\n}\n.dropdown-item.highlighted[data-v-15076938] {\n  background-color: #f3f3f3;\n}\n.dropdown-menu.show[data-v-15076938] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.vue-tel-input.disabled .selection[data-v-15076938],\n.vue-tel-input.disabled .dropdown[data-v-15076938],\n.vue-tel-input.disabled input[data-v-15076938] {\n  cursor: no-drop;\n}\n.myclose[data-v-15076938] {\n  display: none !important;\n}\n.myopen[data-v-15076938] {\n  display: block !important;\n}\n";
 styleInject(css_248z);script.render = render;
-script.__scopeId = "data-v-78b3b994";// Import vue component
+script.__scopeId = "data-v-15076938";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 

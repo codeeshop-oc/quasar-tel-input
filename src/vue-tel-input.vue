@@ -1,5 +1,5 @@
 <script>
-import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
+import { formatNational, formatIncompletePhoneNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
 import allCountries, { findCountryFromISO } from './assets/all-countries';
 import getCountry from './assets/default-country';
 
@@ -105,6 +105,9 @@ export default /*#__PURE__*/defineComponent({
 
         // Find inputted country in the countries list
         this.activeCountry = this.findCountry(formatter.country) || this.activeCountry;
+        const formatter2 = new AsYouType('US');// eslint-disable-line
+        formatter2.input(this.phone);
+        console.log(formatIncompletePhoneNumber(this.phone))
       } else if (this.mode === 'prefix') {
         // Remove the first '0' if this is a '0' prefix number
         // Ex: 0432421999
