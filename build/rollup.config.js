@@ -7,8 +7,10 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
+import PostCSS from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
+import scss from "rollup-plugin-scss";
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -41,15 +43,20 @@ const baseConfig = {
       'process.env.NODE_ENV': JSON.stringify('production'),
     },
     vue: {
-      css: true,
-      template: {
-        isProduction: true,
-      },
     },
     postVue: [
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       }),
+      // Process only `<style module>` blocks.
+      PostCSS({
+        modules: {
+          generateScopedName: '[local]___[hash:base64:5]',
+        },
+        include: /&module=.*\.css$/,
+      }),
+      // Process all `<style>` blocks except `<style module>`.
+      PostCSS({ include: /(?<!&module=.*)\.css$/ }),
       commonjs(),
     ],
     babel: {
@@ -78,6 +85,8 @@ const globals = {
 
 // Customize configs for individual targets
 const buildFormats = [];
+
+
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
@@ -105,11 +114,6 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
-      terser({
-        output: {
-          ecma: 5,
-        },
-      }),
     ],
   };
   buildFormats.push(esConfig);
@@ -130,13 +134,7 @@ if (!argv.format || argv.format === 'cjs') {
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
-      vue({
-        ...baseConfig.plugins.vue,
-        template: {
-          ...baseConfig.plugins.vue.template,
-          optimizeSSR: true,
-        },
-      }),
+      vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
     ],
