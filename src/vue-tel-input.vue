@@ -33,14 +33,17 @@
     <!-- :formatter="format" -->
      <input ref="input"
        v-model="phone"
-       type="number"
+       type="tel"
        :placeholder="placeholder"
        :state="state"
        :disabled="disabled"
        @blur="onBlur"
        @input="onInput"
-       :maxlength="maxlength"
-       :required="required">
+       onkeypress="return /\d/.test(String.fromCharCode(event.keyCode || event.which))"
+       @change="isNumber(phone) ? '' : phone = ''"
+       :maxLength="maxlength"
+       :required="required"
+       />
   </div>
 </template>
 
@@ -288,6 +291,9 @@ export default {
     },
   },
   methods: {
+    isNumber(num) {
+      return /^\d*$/.test(num)
+    },
     findCountryFromISOCode(code) {
       return findCountryFromISO(code);
     },
