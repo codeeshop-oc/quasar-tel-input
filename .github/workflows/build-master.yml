@@ -17,8 +17,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 'v14.18.1'
-        token: ${{ secrets.ACCESS_TOKEN }}
+        node-version: 'v14.18.1'        
         cache: 'yarn'
     - run: yarn
     - name: Building
@@ -29,9 +28,12 @@ jobs:
       run: |
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"
+        git branch -d dist-files 
         git checkout -b dist-files
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
         git push -u origin dist-files
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
