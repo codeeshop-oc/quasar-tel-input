@@ -33,7 +33,9 @@ jobs:
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
-        git push -u origin dist-files
-        gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files"
+        git push -u origin dist-files        
+        gh repo set-default codeeshop-oc/quasar-tel-input
+        gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc
+        gh pr merge dist-files -m --auto
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
