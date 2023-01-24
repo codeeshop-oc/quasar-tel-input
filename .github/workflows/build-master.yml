@@ -20,8 +20,9 @@ jobs:
         node-version: 'v14.18.1'
         cache: 'yarn'
     - run: yarn
-    - run: yarn build
-  
+    - name: Building
+      run: yarn build
+      
     # Commits all changed files to the repository
     - name: Commit to the repo
       run: |
@@ -31,4 +32,6 @@ jobs:
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update generated files' || echo
         git push
-    
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      
