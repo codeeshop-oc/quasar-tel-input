@@ -27,9 +27,9 @@ jobs:
     - name: Commit to the repo
       run: |
         git config --global user.name "Anant"
-        git config --global user.email "anantnegi8@gmail.com"
-        git branch -d dist-files 
+        git config --global user.email "anantnegi8@gmail.com"          
         git checkout -b dist-files
+        git fetch
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
