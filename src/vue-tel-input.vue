@@ -148,7 +148,7 @@ ul {
 
 <script>
 // formatNational, formatIncompletePhoneNumber
-import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
+import { AsYouType, isValidNumber } from 'libphonenumber-js';
 import allCountries, { findCountryFromISO } from './assets/all-countries';
 import getCountry from './assets/default-country';
 
@@ -367,7 +367,6 @@ export default {
       this.open = !this.open;
     },
     clickedOutside() {
-    console.log('[re]')
       this.open = false;
     },
     keyboardNav(e) {
@@ -433,7 +432,7 @@ export default {
           if (compName) {
             warn += 'Found in component ' + compName;
           }
-          console.warn(warn);
+          // console.warn(warn);
         }
         // Define Handler and cache it on the element
         var bubble = binding.modifiers.bubble;
