@@ -27,8 +27,8 @@ jobs:
     - name: Commit to the repo
       run: |
         git config --global user.name "Anant"
-        git config --global user.email "anantnegi8@gmail.com"          
-        git checkout -b dist-files
+        git config --global user.email "anantnegi8@gmail.com"
+        git checkout master
         git pull origin master
         git pull origin dist-files
         git add .
@@ -37,6 +37,7 @@ jobs:
         git push -u origin dist-files        
         gh repo set-default codeeshop-oc/quasar-tel-input
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc
-        gh pr merge dist-files -m --auto
+        gh pr merge dist-files -m --auto        
+        git branch -D dist-files
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
