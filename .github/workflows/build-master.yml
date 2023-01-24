@@ -30,7 +30,6 @@ jobs:
         git config --global user.email "anantnegi8@gmail.com"
         git checkout master
         git pull origin master
-        git pull origin dist-files
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
