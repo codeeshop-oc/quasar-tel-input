@@ -28,12 +28,13 @@ jobs:
       run: |
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"
-        git checkout master
+        git checkout -b dist-files master
         git pull origin master
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
         git push -u origin dist-files        
+        git checkout master
         gh repo set-default codeeshop-oc/quasar-tel-input
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc
         gh pr merge dist-files -m --auto        
