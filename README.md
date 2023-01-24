@@ -1,5 +1,5 @@
 # vue-tel-input
-International Telephone Input with Vue
+International Telephone Input with Vue.
 
 Checkout Demo at [Github pages](https://educationlink.github.io/vue-tel-input/).
 
