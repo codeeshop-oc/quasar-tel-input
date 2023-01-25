@@ -28,7 +28,7 @@ jobs:
       run: |
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"        
-        git add *
+        git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
         git push -u origin master || echo

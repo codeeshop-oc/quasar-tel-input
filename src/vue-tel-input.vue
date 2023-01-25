@@ -1,7 +1,6 @@
 <template>
   <div class="vue-tel-input"
        :class="{ disabled: disabled }">
-
     <div class="dropdown"
          @click="toggleDropdown"
          v-click-outside-input="clickedOutside"
