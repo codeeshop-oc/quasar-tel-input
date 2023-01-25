@@ -26,8 +26,8 @@ jobs:
     # Commits all changed files to the repository
     - name: Commit to the repo
       run: |
-        git config --global user.name "Anant"
-        git config --global user.email "anantnegi8@gmail.com"
+        git config --global user.name "codeeshop-oc/quasar-tel-input"
+        git config --global user.email "github-stats[bot]@codeeshop-oc.github.io"
         git branch -D dist-files || echo
         git checkout -b dist-files
         git stash
