@@ -51,5 +51,9 @@ jobs:
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc  || echo
         gh pr merge dist-files -m --auto || echo
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ github.token }}
+    - name: Deleting Previous Branches
+      run: |
+        git branch -D dist-files || echo
+        git push -d origin dist-files || echo
 
