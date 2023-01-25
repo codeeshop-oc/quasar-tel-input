@@ -28,8 +28,8 @@ jobs:
       run: |
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"
-        git checkout -b dist-files
-        git stash
+        git branch -D dist-files || echo
+        git checkout -b dist-files        
         git pull origin master
         git rebase master dist-files
         git add .
@@ -39,7 +39,6 @@ jobs:
         git checkout master
         gh repo set-default codeeshop-oc/quasar-tel-input
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc
-        gh pr merge dist-files -m --auto        
-        git branch -D dist-files
+        gh pr merge dist-files -m --auto                
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
