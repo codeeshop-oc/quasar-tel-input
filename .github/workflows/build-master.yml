@@ -29,9 +29,9 @@ jobs:
         git config --global user.name "codeeshop-oc/quasar-tel-input"
         git config --global user.email "github-stats[bot]@codeeshop-oc.github.io"
         git branch -D dist-files || echo
+        git pull origin master
         git checkout -b dist-files
         git stash
-        git pull origin master
         git rebase master dist-files
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
