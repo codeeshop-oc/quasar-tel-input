@@ -31,6 +31,6 @@ jobs:
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
-        git push -u origin master || echo
+        git push -u origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
