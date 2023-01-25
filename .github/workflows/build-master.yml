@@ -22,15 +22,24 @@ jobs:
     - run: yarn
       
     # Commits all changed files to the repository
-    - name: Commit to the repo
+    - name: Config Repo
       run: |
         git config --global user.name "codeeshop-oc/quasar-tel-input"
         git config --global user.email "github-stats[bot]@codeeshop-oc.github.io"
-        git branch -D dist-files || echo        
+    - name: Deleting Previous Branches
+      run: |
+        git branch -D dist-files || echo
+        git push -d origin dist-files || echo
+    - name: Continue Committing
+      run: |            
         git checkout -b dist-files
         git stash
         git rebase master dist-files
+    - name: Yarn Building
+      run: |            
         yarn build
+    - name: Continue Committing
+      run: |
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
