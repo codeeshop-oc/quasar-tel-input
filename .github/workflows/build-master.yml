@@ -29,7 +29,8 @@ jobs:
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"
         git branch -D dist-files || echo
-        git checkout -b dist-files        
+        git checkout -b dist-files
+        git statsh
         git pull origin master
         git rebase master dist-files
         git add .
