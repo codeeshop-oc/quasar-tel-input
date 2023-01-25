@@ -6,7 +6,7 @@ name: build-master
 on:
   push:
     branches: [ "master" ]
-    
+
 jobs:
   build:
 
@@ -17,10 +17,10 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 'v14.18.1'        
+        node-version: 'v14.18.1'
         cache: 'yarn'
     - run: yarn
-      
+
     # Commits all changed files to the repository
     - name: Config Repo
       run: |
@@ -31,12 +31,12 @@ jobs:
         git branch -D dist-files || echo
         git push -d origin dist-files || echo
     - name: Continue Committing
-      run: |            
+      run: |
         git checkout -b dist-files
         git stash
         git rebase master dist-files
     - name: Yarn Building
-      run: |            
+      run: |
         yarn build
     - name: Continue Committing
       run: |
@@ -50,4 +50,4 @@ jobs:
         gh pr merge dist-files -m --auto || echo
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+
