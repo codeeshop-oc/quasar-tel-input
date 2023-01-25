@@ -20,7 +20,7 @@ jobs:
         node-version: 'v14.18.1'        
         cache: 'yarn'
     - run: yarn
-    - name: Building
+    - name: Yarn Building
       run: yarn build
       
     # Commits all changed files to the repository
@@ -30,7 +30,7 @@ jobs:
         git config --global user.email "anantnegi8@gmail.com"
         git branch -D dist-files || echo
         git checkout -b dist-files
-        git statsh
+        git stash
         git pull origin master
         git rebase master dist-files
         git add .
