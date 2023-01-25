@@ -30,7 +30,7 @@ jobs:
       run: |
         git branch -D dist-files || echo
         git push -d origin dist-files || echo
-    - name: Continue Committing
+    - name: Setting Branch to dist-files
       run: |
         git checkout -b dist-files
         git stash
@@ -38,13 +38,15 @@ jobs:
     - name: Yarn Building
       run: |
         yarn build
-    - name: Continue Committing
+    - name: Committing
       run: |
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update Dist Files' || echo
         git push -u origin dist-files
         git checkout master
+    - name: Merging
+      run: |
         gh repo set-default codeeshop-oc/quasar-tel-input
         gh pr create --base master --head dist-files --title "Update Build Files" --body "Dist-Build Files" --reviewer codeeshop-oc  || echo
         gh pr merge dist-files -m --auto || echo
