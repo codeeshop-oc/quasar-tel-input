@@ -29,6 +29,7 @@ jobs:
         git config --global user.name "Anant"
         git config --global user.email "anantnegi8@gmail.com"
         git checkout -b dist-files
+        git stash
         git rebase master dist-files
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
