@@ -26,8 +26,7 @@ jobs:
       run: |
         git config --global user.name "codeeshop-oc/quasar-tel-input"
         git config --global user.email "github-stats[bot]@codeeshop-oc.github.io"
-        git branch -D dist-files || echo
-        git pull origin master
+        git branch -D dist-files || echo        
         git checkout -b dist-files
         git stash
         git rebase master dist-files
