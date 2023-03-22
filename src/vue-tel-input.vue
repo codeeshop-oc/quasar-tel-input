@@ -10,8 +10,8 @@
          tabindex="0"
          @keydown.esc="reset">
       <span class="selection">
-        <div class="iti-flag"
-             :class="activeCountry.iso2.toLowerCase()"></div>
+        <!-- <div class="iti-flag" :class="activeCountry.iso2.toLowerCase()"></div> -->
+        (+{{activeCountry.dialCode}})
         <span class="dropdown-arrow">
           {{ open ? '▲' : '▼' }}
         </span>
